@@ -67,26 +67,32 @@ namespace Renderer {
 	}
 
 	void Shader::SetUniform_int(const std::string& name, GLint value) {
-	
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform1i(location, value));
 	}
 
 	void Shader::SetUniform_uint(const std::string& name, GLuint value) {
-
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform1ui(location, value));
 	}
 
 	void Shader::SetUniform_float(const std::string& name, GLfloat value) {
-
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform1f(location, value));
 	}
 
 	void Shader::SetUniform_vec2(const std::string& name, glm::vec2 value) {
-	
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform2f(location, value[0], value[1]));
 	}
 
 	void Shader::SetUniform_vec3(const std::string& name, glm::vec3 value) {
-	
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform3f(location, value[0], value[1], value[2]));
 	}
 
 	void Shader::SetUniform_vec4(const std::string& name, glm::vec4 value) {
-	
+		GL_CALL(GLint location = glGetUniformLocation(this->ShaderProgram, name.c_str()));
+		GL_CALL(glUniform4f(location, value[0], value[1], value[2], value[3]));
 	}
 }

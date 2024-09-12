@@ -47,9 +47,13 @@ public:
 			exit(EXIT_FAILURE);
 		}
 
+		std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+
 		this->VAO = 0;
 		this->VBO = 0;
 		this->EBO = 0;
+
+		this->BasicShader = nullptr;
 	}
 
 	~Application() {
@@ -108,10 +112,11 @@ public:
 			ProcessInput(this->Window);
 
 			// Rendering commands
-			GL_CALL(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+			GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
 
 			this->BasicShader->Use();
+			this->BasicShader->SetUniform_vec4("COLOUR", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 			GL_CALL(glBindVertexArray(this->VAO));
 			GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 			GL_CALL(glBindVertexArray(0));
