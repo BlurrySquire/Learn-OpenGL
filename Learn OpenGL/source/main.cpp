@@ -28,11 +28,11 @@ public:
 	Application() {
 		glfwInit();
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		this->Window = glfwCreateWindow(800, 600, "Learn OpenGL 3.3", nullptr, nullptr);
+		this->Window = glfwCreateWindow(800, 600, "Learn OpenGL 4.2", nullptr, nullptr);
 		if (this->Window == nullptr) {
 			std::cout << "GLFW Error: " << glfwGetError(nullptr) << "\n";
 			exit(EXIT_FAILURE);
