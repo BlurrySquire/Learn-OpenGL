@@ -63,6 +63,7 @@ public:
 		glDeleteBuffers(1, &this->EBO);
 		glDeleteVertexArrays(1, &this->VAO);
 
+		glfwDestroyWindow(this->Window);
 		glfwTerminate();
 	}
 
