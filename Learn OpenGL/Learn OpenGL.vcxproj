@@ -113,7 +113,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)/source/glad/include;$(ProjectDir)/source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,14 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\glad\src\glad.c" />
+    <ClCompile Include="source\glad\src\gl.c" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\renderer\renderer.cpp" />
     <ClCompile Include="source\renderer\shader.cpp" />
     <ClCompile Include="source\system\file.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\glad\include\glad\glad.h" />
+    <ClInclude Include="source\glad\include\glad\gl.h" />
     <ClInclude Include="source\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="source\renderer\renderer.hpp" />
     <ClInclude Include="source\renderer\shader.hpp" />

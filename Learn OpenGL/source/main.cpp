@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 
@@ -32,6 +32,10 @@ public:
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+		#ifdef _DEBUG
+			glfwWindowHint(GLFW_CONTEXT_DEBUG, GLFW_TRUE);
+		#endif
+
 		this->Window = glfwCreateWindow(800, 600, "Learn OpenGL 4.3", nullptr, nullptr);
 		if (this->Window == nullptr) {
 			std::cout << "GLFW Error: " << glfwGetError(nullptr) << "\n";
@@ -41,7 +45,7 @@ public:
 
 		glfwSetFramebufferSizeCallback(this->Window, framebuffer_size_callback);
 
-		int glad = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		int glad = gladLoadGL((GLADloadfunc)glfwGetProcAddress);
 		if (!glad) {
 			std::cout << "Glad Error: " << "Init failed." << "\n";
 			exit(EXIT_FAILURE);
@@ -68,7 +72,12 @@ public:
 	}
 
 	void Init() {
-		GL_CALL(glViewport(0, 0, 800, 600));
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+		glDebugMessageCallback(Renderer::GL_ErrorCallback, 0);
+
+		glViewport(0, 0, 800, 600);
 
 		float vertices[] = {
 			 0.5f,  0.5f, 0.0f,  // top right
@@ -82,26 +91,26 @@ public:
 		};
 
 		// Vertex Array Object
-		GL_CALL(glGenVertexArrays(1, &this->VAO));
-		GL_CALL(glBindVertexArray(this->VAO));
+		glGenVertexArrays(1, &this->VAO);
+		glBindVertexArray(this->VAO);
 
 		// Vertex Buffer Object
-		GL_CALL(glGenBuffers(1, &this->VBO));
-		GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, this->VBO));
-		GL_CALL(glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW));
+		glGenBuffers(1, &this->VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 		// Element Buffer Object
-		GL_CALL(glGenBuffers(1, &this->EBO));
-		GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO));
-		GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+		glGenBuffers(1, &this->EBO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		this->BasicShader = new Renderer::Shader("shaders/basic.vert", "shaders/basic.frag");
 
-		GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
-		GL_CALL(glEnableVertexAttribArray(0));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
 
-		GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
-		GL_CALL(glBindVertexArray(0));
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 	}
 
 	void Loop() {
@@ -113,14 +122,14 @@ public:
 			ProcessInput(this->Window);
 
 			// Rendering commands
-			GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-			GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 
 			this->BasicShader->Use();
 			this->BasicShader->SetUniform_vec4("COLOUR", glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-			GL_CALL(glBindVertexArray(this->VAO));
-			GL_CALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
-			GL_CALL(glBindVertexArray(0));
+			glBindVertexArray(this->VAO);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
 
 			// Finish the frame by displaying the framebuffer
 			glfwSwapBuffers(this->Window);

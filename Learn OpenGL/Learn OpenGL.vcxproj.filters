@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\glad\src\glad.c">
+    <ClCompile Include="source\glad\src\gl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
@@ -35,7 +35,7 @@
     <ClInclude Include="source\glad\include\KHR\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\glad\include\glad\glad.h">
+    <ClInclude Include="source\glad\include\glad\gl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\renderer\renderer.hpp">

@@ -1,21 +1,22 @@
 #include <iostream>
+#include <format>
+#include <string>
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 #include "renderer.hpp"
 
 namespace Renderer {
-	void GL_ClearErrors() {
-		while (glGetError() != GL_NO_ERROR) {
+	// const void* userParam is unused at the moment
+	void GLAPIENTRY GL_ErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
+		std::string severity_str = "";
+		switch (severity) {
+			case GL_DEBUG_SEVERITY_LOW: severity_str = "LOW"; break;
+			case GL_DEBUG_SEVERITY_MEDIUM: severity_str = "MEDIUM";  break;
+			case GL_DEBUG_SEVERITY_HIGH: severity_str = "HIGH"; break;
+			default: severity_str = "UNKNOWN"; break;
 		}
-	}
 
-	void GL_LogError(const char* function, const char* file, const int line) {
-		while (GLenum error = glGetError()) {
-			std::cout << "ERROR::OPENGL " << error << "\n\t";
-			std::cout << "In '" << function << "'";
-			std::cout << " in " << "'" << file << "'";
-			std::cout << " at line " << line << "\n\t";
-		}
+		std::cout << std::format("[OPENGL ERROR] [{}] {} {} {} {} - '{}'", severity_str, source, type, id, length, message) << std::endl;
 	}
 }
