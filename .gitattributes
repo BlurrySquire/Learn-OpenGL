@@ -1,4 +1,5 @@
 * text=auto
 
-Learn\ OpenGL/source/glad/include/**.h linguist-vendored
-Learn\ OpenGL/source/glad/src/**.c linguist-vendored
+Learn\ OpenGL/source/glad/include/KHR/khrplatform.h linguist-vendored
+Learn\ OpenGL/source/glad/include/glad/gl.h linguist-vendored
+Learn\ OpenGL/source/glad/src/gl.c linguist-vendored
